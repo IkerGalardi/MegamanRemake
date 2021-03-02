@@ -12,9 +12,11 @@
 
 namespace gl {
     class buffer;
+    class vertex_array;
 
     class shader {
         friend void draw(const gl::shader& shader, const gl::buffer& buffer);
+        friend void draw(const gl::shader& shader, const gl::vertex_array& varray);
     public:
         shader() = default;
         shader(const std::string& vs, const std::string& fs);

@@ -5,6 +5,7 @@
 #include <GL/glew.h>
 
 #include "buffer.hh"
+#include "shader.hh"
 
 namespace gl {
     enum class attrib_type {
@@ -25,6 +26,7 @@ namespace gl {
     };
 
     class vertex_array {
+        friend void draw(const gl::shader& shader, const gl::vertex_array& varray);
     public:
         vertex_array();
         ~vertex_array();

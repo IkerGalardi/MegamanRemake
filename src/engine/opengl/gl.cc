@@ -16,4 +16,7 @@ namespace gl {
         glBindBuffer(static_cast<uint32>(buffer.btype), buffer.id);
         glDrawBuffer(GL_BACK);
     }
+
+    void draw(const gl::shader& shader, const gl::vertex_array& varray) {
+    }
 }
