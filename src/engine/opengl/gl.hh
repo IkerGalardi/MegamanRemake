@@ -6,6 +6,7 @@
 #include "common.hh"
 #include "buffer.hh"
 #include "shader.hh"
+#include "vertex_array.hh"
 
 namespace gl {
     void set_clear_color(const glm::vec4& color);
