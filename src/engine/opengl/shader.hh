@@ -16,7 +16,7 @@ namespace gl {
 
     class shader {
         friend void draw(const gl::shader& shader, const gl::buffer& buffer);
-        friend void draw(const gl::shader& shader, const gl::vertex_array& varray);
+        friend void draw(const gl::shader& shader, const gl::vertex_array& varray, uint32 n);
     public:
         shader() = default;
         shader(const std::string& vs, const std::string& fs);

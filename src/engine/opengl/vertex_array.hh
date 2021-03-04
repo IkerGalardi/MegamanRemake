@@ -26,7 +26,7 @@ namespace gl {
     };
 
     class vertex_array {
-        friend void draw(const gl::shader& shader, const gl::vertex_array& varray);
+        friend void draw(const gl::shader& shader, const gl::vertex_array& varray, uint32 n);
     public:
         vertex_array();
         ~vertex_array();

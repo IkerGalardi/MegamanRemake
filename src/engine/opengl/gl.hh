@@ -13,5 +13,5 @@ namespace gl {
     void clear(uint32 clear_mask);
 
     void draw(const gl::shader& shader, const gl::buffer& buffer);
-    void draw(const gl::shader& shader, const gl::vertex_array& varray);
+    void draw(const gl::shader& shader, const gl::vertex_array& varray, uint32 n);
 }

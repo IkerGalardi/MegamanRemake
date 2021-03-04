@@ -10,13 +10,24 @@ namespace gl {
     }
 
     void draw(const gl::shader& shader, const gl::buffer& buffer) {
+        // if there is any vertex array, unbind 
         glBindVertexArray(0);
 
+        // Bind the shader program to be used
         glUseProgram(shader.id);
+        
+        // Bind and draw the specified buffer
         glBindBuffer(static_cast<uint32>(buffer.btype), buffer.id);
         glDrawBuffer(GL_BACK);
     }
 
-    void draw(const gl::shader& shader, const gl::vertex_array& varray) {
+    void draw(const gl::shader& shader, const gl::vertex_array& varray, uint32 n) {
+        // Bind the specified vertex array
+        glBindVertexArray(varray.id);
+
+        // Bind the shader program to be used
+        glUseProgram(shader.id);
+
+        glDrawElements(GL_TRIANGLES, n, GL_UNSIGNED_INT, 0);
     }
 }
