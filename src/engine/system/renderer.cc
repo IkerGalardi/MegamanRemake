@@ -1,5 +1,7 @@
 #include "renderer.hh"
 
+#include "engine/opengl/gl.hh"
+
 namespace fs = std::filesystem;
 
 namespace engine {
@@ -7,8 +9,11 @@ namespace engine {
         : system(app),
           quad(gl::buffer_type::array_buffer, gl::draw_type::static_draw),
           indices(gl::buffer_type::element_buffer, gl::draw_type::static_draw),
-          shader(fs::path("shaders/basicvertex.vert"), fs::path("shaders/color.frag"))
+          shader()
     {
+
+        gl::debugging_information(true);
+        
         // Add buffers to vertex array
         varray.add_buffer(quad);
         varray.add_buffer(indices);
@@ -17,7 +22,54 @@ namespace engine {
             { 2, gl::attrib_type::float32 }
         });
 
+        // Setup the quad buffer
+        {
+            float vertices[] = 
+            {
+                -1.0f, -1.0f, 0.0f, 0.0f, 0.0f,
+                 1.0f, -1.0f, 0.0f, 1.0f, 0.0f,
+                 1.0f,  1.0f, 0.0f, 1.0f, 1.0f,
+                -1.0f,  1.0f, 0.0f, 0.0f, 1.0f,
+            };
+
+            unsigned int elements[] =
+            {
+                0, 1, 2,
+                2, 3, 0
+            };
+
+            quad.set_data(vertices, sizeof(vertices));
+            indices.set_data(elements, sizeof(elements));
+        }
+
+        // Setup of shaders
+        {
+            const std::string vertex_source = 
+            "#version 330 core\n"
+            "layout (location = 0) in vec3 aPos;\n"
+            "layout (location = 1) in vec2 aTexCoord;\n"
+            "out vec2 TexCoord;\n"
+            "void main()\n"
+            "{\n"
+            "   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
+            "   TexCoord = aTexCoord;\n"
+            "}\0";
+
+            const std::string fragment_source = 
+            "#version 330 core\n"
+            "in vec2 TexCoord;\n"
+            "out vec4 FragColor;\n"
+            "void main()\n"
+            "{\n"
+            "   FragColor = vec4(TexCoord ,0.0f, 1.0f);\n"
+            "   FragColor = texture(text, TexCoord);\n"
+            "}\0";
+
+            shader = gl::shader(vertex_source, fragment_source);
+        }
+
         gl::set_clear_color({1, 1, 1, 1});
+
     }
 
     renderer_system::~renderer_system() {
@@ -26,6 +78,8 @@ namespace engine {
 
     void renderer_system::on_update() {
         gl::clear(GL_COLOR_BUFFER_BIT);
+
+        gl::draw(shader, varray, 6);
     }
 
     void renderer_system::on_destroy() {
