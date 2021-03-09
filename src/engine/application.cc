@@ -41,6 +41,10 @@ namespace engine {
         }
 
         application::~application() {
+            for(auto& system : attached_systems) {
+                system->on_destroy();
+            }
+
             if(opengl_context != nullptr)
                 SDL_GL_DeleteContext(opengl_context);
 
@@ -51,18 +55,19 @@ namespace engine {
         }
 
         void application::start() {
-
-
             bool running = true;
             while(running) {
                 SDL_GL_SwapWindow(window_handler);
-                gl::clear(GL_COLOR_BUFFER_BIT);
 
                 SDL_Event event;
                 while(SDL_PollEvent(&event)) {
                     if(event.type == SDL_QUIT) {
                         running = false;
                     }
+                }
+
+                for(auto& system : attached_systems) {
+                    system->on_update();
                 }
             }
         }
