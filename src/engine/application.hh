@@ -18,7 +18,7 @@ namespace engine {
 
         template<typename sys>
         void attach_system() {
-            attached_systems.push_back(std::make_unique<sys>());
+            attached_systems.push_back(new sys(*this));
         }
     private:
         const std::string name;
@@ -26,7 +26,7 @@ namespace engine {
         SDL_Window* window_handler;
         SDL_GLContext opengl_context;
 
-        std::vector<std::unique_ptr<engine::system>> attached_systems;
+        std::vector<engine::system*> attached_systems;
     protected:
     };
 }

@@ -1,5 +1,7 @@
 #include "renderer.hh"
 
+#include <iostream>
+
 #include "engine/opengl/gl.hh"
 
 namespace fs = std::filesystem;
@@ -11,7 +13,7 @@ namespace engine {
           indices(gl::buffer_type::element_buffer, gl::draw_type::static_draw),
           shader()
     {
-
+        std::cout << "Initializing rendering system" << std::endl;
         gl::debugging_information(true);
         
         // Add buffers to vertex array
