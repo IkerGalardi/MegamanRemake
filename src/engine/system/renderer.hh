@@ -17,8 +17,6 @@ namespace engine {
         gl::vertex_array varray;
         gl::buffer quad;
         gl::buffer indices;
-
-        gl::shader shader;
     protected:
     };
 }

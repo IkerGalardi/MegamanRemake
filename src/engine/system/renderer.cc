@@ -10,8 +10,7 @@ namespace engine {
     renderer_system::renderer_system(const engine::application& app)
         : system(app),
           quad(gl::buffer_type::array_buffer, gl::draw_type::static_draw),
-          indices(gl::buffer_type::element_buffer, gl::draw_type::static_draw),
-          shader()
+          indices(gl::buffer_type::element_buffer, gl::draw_type::static_draw)
     {
         std::cout << "Initializing rendering system" << std::endl;
         gl::debugging_information(true);
@@ -66,8 +65,6 @@ namespace engine {
             "   FragColor = vec4(TexCoord ,0.0f, 1.0f);\n"
             "   FragColor = texture(text, TexCoord);\n"
             "}\0";
-
-            shader = gl::shader(vertex_source, fragment_source);
         }
 
         gl::set_clear_color({1, 1, 1, 1});
@@ -80,8 +77,6 @@ namespace engine {
 
     void renderer_system::on_update() {
         gl::clear(GL_COLOR_BUFFER_BIT);
-
-        gl::draw(shader, varray, 6);
     }
 
     void renderer_system::on_destroy() {
