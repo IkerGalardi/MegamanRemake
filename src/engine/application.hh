@@ -21,7 +21,7 @@ namespace engine {
         template<typename sys>
         void attach_system() {
             auto logger = logger::create_from_name(sys::get_name());
-            attached_systems.push_back(new sys(*this, logger));
+            attached_systems.push_back(std::make_shared<sys>(*this, logger));
         }
     private:
         const std::string name;
@@ -29,7 +29,7 @@ namespace engine {
         SDL_Window* window_handler;
         SDL_GLContext opengl_context;
 
-        std::vector<engine::system*> attached_systems;
+        std::vector<std::shared_ptr<engine::system>> attached_systems;
         std::shared_ptr<spdlog::logger> logger;
     protected:
     };

@@ -43,9 +43,6 @@ namespace engine {
         }
 
         application::~application() {
-            for(auto& system : attached_systems)
-                system->on_destroy();
-
             if(opengl_context != nullptr)
                 SDL_GL_DeleteContext(opengl_context);
 
