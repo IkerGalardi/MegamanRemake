@@ -33,7 +33,7 @@ namespace engine {
           indices(gl::buffer_type::element_buffer, gl::draw_type::static_draw),
           shader(vertex_source, fragment_source)
     {
-        std::cout << "Initializing rendering system" << std::endl;
+        logger->info("Initializing the rendering system");
         gl::debugging_information(true);
         
         // Add buffers to vertex array
@@ -65,6 +65,8 @@ namespace engine {
         }
 
         gl::set_clear_color({1, 1, 1, 1});
+
+        logger->info("All buffers sent to the GPU, prepared for rendering...");
     }
 
     renderer_system::~renderer_system() {

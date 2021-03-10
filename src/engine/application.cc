@@ -23,7 +23,8 @@ namespace engine {
             SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
             logger->info("Screen framebuffers initialized");
 
-            // Create window
+            // Create the window with undefined position, this way the application should
+            // be opened where the the user closed it last
             window_handler = SDL_CreateWindow(name.c_str(), 
                                               SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 
                                               700, 700,
@@ -33,7 +34,7 @@ namespace engine {
             SDL_GL_MakeCurrent(window_handler, opengl_context);
             logger->info("Created window and OpenGL context");
 
-            // Initialize opengl
+            // Initialize opengl 
             auto gl_init_status = glewInit();
             if(gl_init_status != GLEW_OK) {
                 logger->critical("Error initializing OpenGL: {}", gl_init_status);
@@ -43,9 +44,17 @@ namespace engine {
         }
 
         application::~application() {
+            // Destroy all the systems (necessary to call the destructor)
+            attached_systems.clear();
+
+            // If a OpenGL context exists, destroy it. The context might not exist
+            // because application initialization might fail before the actual context
+            // is created
             if(opengl_context != nullptr)
                 SDL_GL_DeleteContext(opengl_context);
 
+            // Same as with the OpenGL context, the handler might not exist, so before
+            // deleting, check if its a valid window
             if(window_handler != nullptr)
                 SDL_DestroyWindow(window_handler);
 

@@ -20,8 +20,11 @@ namespace engine {
 
         template<typename sys>
         void attach_system() {
-            auto logger = logger::create_from_name(sys::get_name());
-            attached_systems.push_back(std::make_shared<sys>(*this, logger));
+            std::string sys_name = sys::get_name();
+            logger->info("System {} has been attatched", sys_name);
+
+            auto system_logger = logger::create_from_name(sys_name);
+            attached_systems.push_back(std::make_shared<sys>(*this, system_logger));
         }
     private:
         const std::string name;

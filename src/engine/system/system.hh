@@ -4,7 +4,7 @@
 
 #include <spdlog/spdlog.h>
 
-#define SYSTEM_BOILERPLATE(sys) public: static std::string get_name() { return #sys; }
+#define SYSTEM_BOILERPLATE(sys) public: static std::string get_name() { return  #sys; }
 
 namespace engine {
     class application;
