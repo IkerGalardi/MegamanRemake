@@ -13,7 +13,6 @@ namespace engine {
         ~renderer_system() override;
 
         void on_update() override;
-        void on_destroy() override;
     private:
         gl::vertex_array varray;
         gl::buffer quad;

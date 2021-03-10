@@ -76,8 +76,4 @@ namespace engine {
 
         gl::draw(shader, varray, 6);
     }
-
-    void renderer_system::on_destroy() {
-
-    }
 }

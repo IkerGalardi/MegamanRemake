@@ -14,9 +14,7 @@ namespace engine {
         system(const engine::application& app_instance, std::shared_ptr<spdlog::logger> logger);
         virtual ~system() = default;
 
-        virtual void on_init() {}
         virtual void on_update() {}
-        virtual void on_destroy() {}
     private:
     protected:
         const engine::application& application;
