@@ -7,12 +7,13 @@
 
 namespace engine {
     class renderer_system : public engine::system {
+        SYSTEM_BOILERPLATE(renderer_system)
     public:
-        renderer_system(const engine::application& app);
+        renderer_system(const engine::application& app, std::shared_ptr<spdlog::logger> logger);
         ~renderer_system() override;
 
-        virtual void on_update() override;
-        virtual void on_destroy() override;
+        void on_update() override;
+        void on_destroy() override;
     private:
         gl::vertex_array varray;
         gl::buffer quad;

@@ -27,8 +27,8 @@ const std::string fragment_source =
 "}\0";
 
 namespace engine {
-    renderer_system::renderer_system(const engine::application& app)
-        : system(app),
+    renderer_system::renderer_system(const engine::application& app, std::shared_ptr<spdlog::logger> logger)
+        : system(app, logger),
           quad(gl::buffer_type::array_buffer, gl::draw_type::static_draw),
           indices(gl::buffer_type::element_buffer, gl::draw_type::static_draw),
           shader(vertex_source, fragment_source)

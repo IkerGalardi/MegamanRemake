@@ -15,6 +15,7 @@ project "megaman"
     files { "src/**.cc", "src/**.hh" }
     includedirs {"lib/include", "src"}
 
+    libdirs {"lib/bin"}
     links {
         "SDL2",
         "GLEW",

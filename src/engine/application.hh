@@ -5,8 +5,10 @@
 #include <memory>
 
 #include <SDL2/SDL.h>
+#include <spdlog/spdlog.h>
 
 #include "system/system.hh"
+#include "logger.hh"
 
 namespace engine {
     class application {
@@ -18,7 +20,8 @@ namespace engine {
 
         template<typename sys>
         void attach_system() {
-            attached_systems.push_back(new sys(*this));
+            auto logger = logger::create_from_name(sys::get_name());
+            attached_systems.push_back(new sys(*this, logger));
         }
     private:
         const std::string name;
@@ -27,6 +30,7 @@ namespace engine {
         SDL_GLContext opengl_context;
 
         std::vector<engine::system*> attached_systems;
+        std::shared_ptr<spdlog::logger> logger;
     protected:
     };
 }

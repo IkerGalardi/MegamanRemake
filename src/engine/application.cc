@@ -4,12 +4,16 @@
 
 #include <GL/glew.h>
 
+#include "logger.hh"
+
 namespace engine {
         application::application(const std::string& name) 
             : name(name) 
         {
+            logger = logger::create_from_name("app");
+            
             SDL_Init(SDL_INIT_EVERYTHING);
-            std::cout << "SDL initialized" << std::endl;
+            logger->info("SDL initialized");
 
             SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 8);
             SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE, 8);
@@ -17,7 +21,7 @@ namespace engine {
             SDL_GL_SetAttribute(SDL_GL_ALPHA_SIZE, 8);
             SDL_GL_SetAttribute(SDL_GL_BUFFER_SIZE, 32);
             SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
-            std::cout << "Setup of opengl framebuffer attributes" << std::endl;
+            logger->info("Screen framebuffers initialized");
 
             // Create window
             window_handler = SDL_CreateWindow(name.c_str(), 
@@ -27,21 +31,20 @@ namespace engine {
 
             opengl_context = SDL_GL_CreateContext(window_handler);
             SDL_GL_MakeCurrent(window_handler, opengl_context);
-            std::cout << "Window created with OpenGL context" << std::endl;
+            logger->info("Created window and OpenGL context");
 
             // Initialize opengl
             auto gl_init_status = glewInit();
             if(gl_init_status != GLEW_OK) {
-                std::cerr << "Error loading opengl" << std::endl;
+                logger->critical("Error initializing OpenGL: {}", gl_init_status);
                 std::exit(1);
             }
-            std::cout << "OpenGL initialized" << std::endl;
+            logger->info("OpenGL initialized succesfully");
         }
 
         application::~application() {
-            for(auto& system : attached_systems) {
+            for(auto& system : attached_systems)
                 system->on_destroy();
-            }
 
             if(opengl_context != nullptr)
                 SDL_GL_DeleteContext(opengl_context);
