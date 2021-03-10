@@ -1,5 +1,5 @@
 #include "engine/application.hh"
-#include "engine/system/renderer.hh"
+#include "engine/system/renderer/renderer.hh"
 
 int main(int argc, char** argv) {
     engine::application app("Megaman Remake");

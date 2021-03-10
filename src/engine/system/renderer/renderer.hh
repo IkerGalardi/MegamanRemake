@@ -3,7 +3,7 @@
 #include <filesystem>
 
 #include "engine/system/system.hh"
-#include "engine/opengl/gl.hh"
+#include "opengl/gl.hh"
 
 namespace engine {
     class renderer_system : public engine::system {

@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-#include "engine/opengl/gl.hh"
+#include "opengl/gl.hh"
 
 namespace fs = std::filesystem;
 

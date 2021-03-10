@@ -139,19 +139,19 @@ endif
 $(OBJDIR)/application.o: src/engine/application.cc
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/buffer.o: src/engine/opengl/buffer.cc
+$(OBJDIR)/buffer.o: src/engine/system/renderer/opengl/buffer.cc
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/gl.o: src/engine/opengl/gl.cc
+$(OBJDIR)/gl.o: src/engine/system/renderer/opengl/gl.cc
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/shader.o: src/engine/opengl/shader.cc
+$(OBJDIR)/shader.o: src/engine/system/renderer/opengl/shader.cc
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/vertex_array.o: src/engine/opengl/vertex_array.cc
+$(OBJDIR)/vertex_array.o: src/engine/system/renderer/opengl/vertex_array.cc
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/renderer.o: src/engine/system/renderer.cc
+$(OBJDIR)/renderer.o: src/engine/system/renderer/renderer.cc
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/system.o: src/engine/system/system.cc

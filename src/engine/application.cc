@@ -4,8 +4,6 @@
 
 #include <GL/glew.h>
 
-#include "opengl/gl.hh"
-
 namespace engine {
         application::application(const std::string& name) 
             : name(name) 
