@@ -63,6 +63,7 @@ GENERATED += $(OBJDIR)/gl.o
 GENERATED += $(OBJDIR)/logger.o
 GENERATED += $(OBJDIR)/main.o
 GENERATED += $(OBJDIR)/renderer.o
+GENERATED += $(OBJDIR)/scene.o
 GENERATED += $(OBJDIR)/shader.o
 GENERATED += $(OBJDIR)/system.o
 GENERATED += $(OBJDIR)/vertex_array.o
@@ -72,6 +73,7 @@ OBJECTS += $(OBJDIR)/gl.o
 OBJECTS += $(OBJDIR)/logger.o
 OBJECTS += $(OBJDIR)/main.o
 OBJECTS += $(OBJDIR)/renderer.o
+OBJECTS += $(OBJDIR)/scene.o
 OBJECTS += $(OBJDIR)/shader.o
 OBJECTS += $(OBJDIR)/system.o
 OBJECTS += $(OBJDIR)/vertex_array.o
@@ -142,6 +144,9 @@ $(OBJDIR)/application.o: src/engine/application.cc
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/logger.o: src/engine/logger.cc
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/scene.o: src/engine/scene/scene.cc
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/buffer.o: src/engine/system/renderer/opengl/buffer.cc
