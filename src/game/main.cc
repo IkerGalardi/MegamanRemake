@@ -7,5 +7,7 @@ int main(int argc, char** argv) {
     // Adding all systems
     app.attach_system<engine::renderer_system>();
 
+    // Setup all scenes
+
     app.start();
 }

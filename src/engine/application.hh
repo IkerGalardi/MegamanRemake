@@ -8,6 +8,7 @@
 #include <spdlog/spdlog.h>
 
 #include "system/system.hh"
+#include "scene/scene.hh"
 #include "logger.hh"
 
 namespace engine {
@@ -17,6 +18,22 @@ namespace engine {
         ~application();
 
         void start();
+
+        template<typename sc>
+        void push_scene(const std::string& name) {
+            auto scene = std::make_shared<engine::scene>(name, *this);
+
+            // Push back to the scene to the scene list
+            scenes.push_back(scene);
+
+            logger->info("added scene {} to the list", name);
+
+            // There is no active scene, set the current one to active
+            if(active_scene.get() == nullptr) {
+                active_scene = scene;
+                logger->info("{} set to active scene", name);
+            }
+        }     
 
         template<typename sys>
         void attach_system() {
@@ -33,6 +50,10 @@ namespace engine {
         SDL_GLContext opengl_context;
 
         std::vector<std::shared_ptr<engine::system>> attached_systems;
+
+        std::vector<std::shared_ptr<engine::scene>> scenes;
+        std::shared_ptr<engine::scene> active_scene;
+
         std::shared_ptr<spdlog::logger> logger;
     protected:
     };
