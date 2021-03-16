@@ -9,7 +9,7 @@ namespace engine {
     class renderer_system : public engine::system {
         SYSTEM_BOILERPLATE(renderer_system)
     public:
-        renderer_system(const engine::application& app, std::shared_ptr<spdlog::logger> logger);
+        renderer_system(std::shared_ptr<spdlog::logger> logger);
         ~renderer_system() override;
 
         void on_update() override;

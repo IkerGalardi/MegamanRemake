@@ -14,9 +14,6 @@
 namespace engine {
     class application {
     public:
-        application(const std::string& name);
-        ~application();
-
         void start();
 
         template<typename sc>
@@ -41,9 +38,15 @@ namespace engine {
             logger->info("System {} has been attatched", sys_name);
 
             auto system_logger = logger::create_from_name(sys_name);
-            attached_systems.push_back(std::make_shared<sys>(*this, system_logger));
+            attached_systems.push_back(std::make_shared<sys>(system_logger));
         }
+
+        static application& get();
     private:
+        application(const std::string& name = "");
+        ~application();
+
+
         const std::string name;
 
         SDL_Window* window_handler;

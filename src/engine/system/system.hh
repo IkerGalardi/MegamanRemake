@@ -11,13 +11,13 @@ namespace engine {
 
     class system {
     public:
-        system(const engine::application& app_instance, std::shared_ptr<spdlog::logger> logger);
+        system(std::shared_ptr<spdlog::logger> logger);
         virtual ~system() = default;
 
         virtual void on_update() {}
     private:
     protected:
-        const engine::application& application;
+        engine::application& application;
         std::shared_ptr<spdlog::logger> logger;
     };
 }
