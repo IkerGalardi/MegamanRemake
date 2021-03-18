@@ -79,6 +79,12 @@ namespace engine
             }
         }
     }
+
+    void application::attach_scene(std::function<void(scene&)> bootstrap, const std::string& name) {
+        scenes.push_back(bootstrap);
+
+        logger->info("scene {} has been added", name);
+    }
     
     application& application::get() {
         static application* app = nullptr;
