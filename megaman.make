@@ -143,10 +143,10 @@ endif
 $(OBJDIR)/application.o: src/engine/application.cc
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/logger.o: src/engine/logger.cc
+$(OBJDIR)/scene.o: src/engine/ecs/scene.cc
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/scene.o: src/engine/scene/scene.cc
+$(OBJDIR)/logger.o: src/engine/logger.cc
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/buffer.o: src/engine/system/renderer/opengl/buffer.cc
