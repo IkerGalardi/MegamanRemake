@@ -2,7 +2,10 @@
 
 #include <iostream>
 
+#include <entt/entt.hpp>
+
 #include "opengl/gl.hh"
+#include "engine/ecs/components.hh"
 
 namespace fs = std::filesystem;
 
@@ -64,7 +67,7 @@ namespace engine {
             indices.set_data(elements, sizeof(elements));
         }
 
-        gl::set_clear_color({1, 1, 1, 1});
+        gl::set_clear_color({1, 1, 0, 1});
 
         logger->info("All buffers sent to the GPU, prepared for rendering...");
     }
@@ -75,7 +78,19 @@ namespace engine {
 
     void renderer_system::on_update() {
         gl::clear(GL_COLOR_BUFFER_BIT);
+        logger->info("Color cleared");
+        
+        auto& registry = get_scene()->get_registry();
+        auto view = registry.view<transform_component, sprite_component>();
+        for(auto entity : view) {
+            logger->info("Drawing entity {}", entity);
+            auto [transform, sprite] = view.get<transform_component, sprite_component>(entity);
 
-        gl::draw(shader, varray, 6);
+            // Create transform of object
+            
+            // Add the uniform of position
+
+            // Draw the quad
+        }
     }
 }

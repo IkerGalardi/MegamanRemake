@@ -15,4 +15,8 @@ namespace engine {
         glm::vec2 position;
         glm::vec2 scale;
     };
+
+    struct sprite_component {
+        glm::vec4 color;
+    };
 }

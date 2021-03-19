@@ -14,6 +14,7 @@
 
 namespace engine {
     class application {
+        friend class engine::system;
     public:
         void start();
 

@@ -4,6 +4,8 @@
 
 #include <spdlog/spdlog.h>
 
+#include "engine/ecs/scene.hh"
+
 #define SYSTEM_BOILERPLATE(sys) public: static std::string get_name() { return  #sys; }
 
 namespace engine {
@@ -17,7 +19,7 @@ namespace engine {
         virtual void on_update() {}
     private:
     protected:
-        engine::application& application;
+        std::shared_ptr<engine::scene> get_scene();
         std::shared_ptr<spdlog::logger> logger;
     };
 }

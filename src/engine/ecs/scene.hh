@@ -11,6 +11,8 @@ namespace engine {
         entt::entity create_entity(const std::string name);
 
         void destroy_entity(entt::entity entity);
+
+        entt::registry& get_registry() { return registry; }
     private:
         entt::registry registry;
 

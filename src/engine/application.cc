@@ -63,6 +63,11 @@ namespace engine
     }
 
     void application::start() {
+        if(!active_scene) {
+            logger->error("The current scene is not set");
+            return;
+        }
+
         bool running = true;
         while (running) {
             SDL_GL_SwapWindow(window_handler);
