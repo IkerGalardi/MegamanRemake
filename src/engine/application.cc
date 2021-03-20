@@ -63,22 +63,32 @@ namespace engine
     }
 
     void application::start() {
-        if(!active_scene) {
+        // If the scene vector is empty, error out
+        // Else, add the first scene from the vector as the active scene
+        if(scenes.empty()) {
             logger->error("The current scene is not set");
             return;
+        } else {
+            active_scene = std::make_shared<engine::scene>(logger::create_from_name("active_scene"));
+            scenes[0](*active_scene);
         }
 
+        // The main loop. Here events from SDL are thrown into the systems
+        // and scenes.
         bool running = true;
         while (running) {
             SDL_GL_SwapWindow(window_handler);
 
             SDL_Event event;
             while (SDL_PollEvent(&event)) {
+                // If the event is a SDL_QUIT event, stop executing 
+                // the engine
                 if (event.type == SDL_QUIT) {
                     running = false;
                 }
             }
 
+            // Call 'on_update' on all the systems
             for (auto &system : attached_systems) {
                 system->on_update();
             }
@@ -87,7 +97,6 @@ namespace engine
 
     void application::attach_scene(std::function<void(scene&)> bootstrap, const std::string& name) {
         scenes.push_back(bootstrap);
-
         logger->info("scene {} has been added", name);
     }
     
