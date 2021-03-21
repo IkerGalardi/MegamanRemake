@@ -26,10 +26,11 @@ const std::string fragment_source =
 "#version 330 core\n"
 "in vec2 TexCoord;\n"
 "out vec4 FragColor;\n"
+"uniform vec4 tint_color;\n"
 "void main()\n"
 "{\n"
-"   FragColor = vec4(TexCoord ,0.0f, 1.0f);\n"
-"}\0";;
+"   FragColor = tint_color;\n"
+"}\0";
 
 namespace engine {
     renderer_system::renderer_system(std::shared_ptr<spdlog::logger> logger)
@@ -94,7 +95,7 @@ namespace engine {
             //shader.set_matrix("transform_matrix", trans_matrix);
 
             // Set the color tint
-            //shader.set_vector("tint_color", sprite.color);
+            shader.set_vector("tint_color", sprite.color);
             
             // Draw the quad
             gl::draw(shader, varray, 6);

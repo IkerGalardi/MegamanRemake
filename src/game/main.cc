@@ -9,7 +9,8 @@ int main(int argc, char** argv) {
     // Setup all scenes
     engine::application::get().attach_scene([](engine::scene& scene){
         auto entity = scene.create_entity("square");
-        engine::sprite_component sprite = scene.get_registry().emplace<engine::sprite_component>(entity);
+        engine::sprite_component& sprite = scene.get_registry().emplace<engine::sprite_component>(entity);
+        sprite.color = glm::vec4(0.0f, 1.0f, 0.0f, 1.0f);
     }, "test_scene");
 
     // Start the game
