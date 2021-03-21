@@ -15,11 +15,10 @@ const std::string vertex_source =
 "#version 330 core\n"
 "layout (location = 0) in vec3 aPos;\n"
 "layout (location = 1) in vec2 aTexCoord;\n"
-"uniform mat4 transform_matrix;\n"
 "out vec2 TexCoord;\n"
 "void main()\n"
 "{\n"
-"   gl_Position = transform_matrix * vec4(aPos, 1.0);\n"
+"   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
 "   TexCoord = aTexCoord;\n"
 "}\0";
 
@@ -27,11 +26,10 @@ const std::string fragment_source =
 "#version 330 core\n"
 "in vec2 TexCoord;\n"
 "out vec4 FragColor;\n"
-"uniform vec4 tint_color;"
 "void main()\n"
 "{\n"
-"   FragColor = vec4(tint_color ,0.0f, 1.0f);\n"
-"}\0";
+"   FragColor = vec4(TexCoord ,0.0f, 1.0f);\n"
+"}\0";;
 
 namespace engine {
     renderer_system::renderer_system(std::shared_ptr<spdlog::logger> logger)
@@ -82,12 +80,11 @@ namespace engine {
 
     void renderer_system::on_update() {
         gl::clear(GL_COLOR_BUFFER_BIT);
-        logger->info("Color cleared");
         
+        // For every entity with transform and sprite components, render them
         auto& registry = get_scene()->get_registry();
         auto view = registry.view<transform_component, sprite_component>();
         for(auto entity : view) {
-            logger->info("Drawing entity {}", entity);
             auto [transform, sprite] = view.get<transform_component, sprite_component>(entity);
 
             // Add the transform as an uniform from the shader. This transform is constructed

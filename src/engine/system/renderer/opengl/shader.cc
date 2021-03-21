@@ -26,8 +26,6 @@ namespace gl
         glValidateProgram(id);
 
         is_initialized = true;
-        
-        std::cout << "Shader created" << std::endl;
     }
 
     shader::shader(const std::filesystem::path &vs, const std::filesystem::path &fs) {
