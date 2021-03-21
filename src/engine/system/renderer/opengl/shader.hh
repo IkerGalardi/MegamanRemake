@@ -26,6 +26,7 @@ namespace gl {
         void set_vector(const std::string& name, glm::vec2 vector);
         void set_vector(const std::string& name, glm::vec3 vector);
         void set_vector(const std::string& name, glm::vec4 vector);
+        void set_matrix(const std::string& name, glm::mat4 matrix);
     private:
         bool is_initialized = false;
 
