@@ -31,6 +31,8 @@ namespace gl {
         bool is_initialized = false;
 
         uint32 id;
+
+        void print_if_errors(uint32 shader);
     protected:
     };
 }

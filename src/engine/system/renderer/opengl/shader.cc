@@ -14,10 +14,12 @@ namespace gl
         uint32 vertex_shader = glCreateShader(GL_VERTEX_SHADER);
         glShaderSource(vertex_shader, 1, &vertex_source, nullptr);
         glCompileShader(vertex_shader);
+        print_if_errors(vertex_shader);
 
         uint32 fragment_shader = glCreateShader(GL_FRAGMENT_SHADER);
         glShaderSource(fragment_shader, 1, &fragment_source, nullptr);
         glCompileShader(fragment_shader);
+        print_if_errors(fragment_shader);
 
         id = glCreateProgram();
         glAttachShader(id, vertex_shader);
@@ -69,5 +71,19 @@ namespace gl
         glUseProgram(id);
         int loc = glGetUniformLocation(id, name.c_str());
         glUniformMatrix4fv(loc,  4 * 4, GL_FALSE, &matrix[0][0]);
+    }
+
+    void shader::print_if_errors(uint32 shader) {
+        int32 succeded;
+        glGetShaderiv(shader, GL_COMPILE_STATUS, &succeded);
+
+        if(!succeded) {
+            char shader_log_info[512];
+            int32 length;
+            glGetShaderInfoLog(shader, 512 * sizeof(char), &length, shader_log_info);
+
+            /// TODO: print through opengl logger
+            std::cout << shader_log_info << std::endl;
+        }
     }
 }
