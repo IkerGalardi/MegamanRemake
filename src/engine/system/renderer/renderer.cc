@@ -15,11 +15,12 @@ const std::string vertex_source =
 "#version 330 core\n"
 "layout (location = 0) in vec3 aPos;\n"
 "layout (location = 1) in vec2 aTexCoord;\n"
+"uniform mat4 view;\n"
 "uniform mat4 transform;\n"
 "out vec2 TexCoord;\n"
 "void main()\n"
 "{\n"
-"   gl_Position = transform * vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
+"   gl_Position = view * transform * vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
 "   TexCoord = aTexCoord;\n"
 "}\0";
 
@@ -82,6 +83,14 @@ namespace engine {
 
     void renderer_system::on_update() {
         gl::clear(GL_COLOR_BUFFER_BIT);
+
+        // Calculate the view transformation matrix and send it to the shader
+        auto camera_position = glm::vec3{get_scene()->camera_position, 0.0f};
+        auto camera_target = camera_position + glm::vec3{0.0f, 0.0f, -1.0f};
+        glm::mat4 view_matrix = glm::lookAt(camera_position, 
+                                            camera_target, 
+                                            glm::vec3{0.0f, 1.0f, 0.0f});
+        shader.set_matrix("view", view_matrix);
 
         // For every entity with transform and sprite components, render them
         auto& registry = get_scene()->get_registry();

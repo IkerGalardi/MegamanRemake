@@ -4,7 +4,8 @@
 
 namespace engine {
     scene::scene(std::shared_ptr<spdlog::logger> logger) 
-        : logger(logger)
+        : logger(logger),
+          camera_position(0.0f, 0.0f)
     {
     }
 

@@ -2,6 +2,7 @@
 
 #include <entt/entt.hpp>
 #include <spdlog/spdlog.h>
+#include <glm/glm.hpp>
 
 namespace engine {
     class scene {
@@ -13,6 +14,8 @@ namespace engine {
         void destroy_entity(entt::entity entity);
 
         entt::registry& get_registry() { return registry; }
+
+        glm::vec2 camera_position;
     private:
         entt::registry registry;
 
