@@ -70,7 +70,7 @@ namespace gl
     void shader::set_matrix(const std::string &name, glm::mat4 matrix) {
         glUseProgram(id);
         int loc = glGetUniformLocation(id, name.c_str());
-        glUniformMatrix4fv(loc,  4 * 4, GL_FALSE, &matrix[0][0]);
+        glUniformMatrix4fv(loc, 1, GL_FALSE, &matrix[0][0]);
     }
 
     void shader::print_if_errors(uint32 shader) {
