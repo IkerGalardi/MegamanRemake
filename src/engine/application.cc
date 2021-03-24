@@ -83,8 +83,19 @@ namespace engine
             while (SDL_PollEvent(&event)) {
                 // If the event is a SDL_QUIT event, stop executing 
                 // the engine
-                if (event.type == SDL_QUIT) {
+                if (event.type == SDL_EventType::SDL_QUIT) {
                     running = false;
+
+                // If the event is a SDL_WINDOWEVENT, further check if
+                // the window size has been changed. If thats true, notify
+                // all the systems
+                } else if (event.type == SDL_EventType::SDL_WINDOWEVENT) {
+                    if(event.window.event == SDL_WINDOWEVENT_RESIZED) {
+                        for(auto& system : attached_systems) {
+                            system->on_screen_resize(event.window.data1, 
+                                                     event.window.data2);
+                        }
+                    }
                 }
             }
 
