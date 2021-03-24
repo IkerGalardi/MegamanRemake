@@ -5,6 +5,7 @@
 #include <entt/entt.hpp>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include <GL/glew.h>
 
 #include "opengl/gl.hh"
 #include "engine/ecs/components.hh"
@@ -15,12 +16,13 @@ const std::string vertex_source =
 "#version 330 core\n"
 "layout (location = 0) in vec3 aPos;\n"
 "layout (location = 1) in vec2 aTexCoord;\n"
+"uniform mat4 projection;\n"
 "uniform mat4 view;\n"
 "uniform mat4 transform;\n"
 "out vec2 TexCoord;\n"
 "void main()\n"
 "{\n"
-"   gl_Position = view * transform * vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
+"   gl_Position = projection * view * transform * vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
 "   TexCoord = aTexCoord;\n"
 "}\0";
 
@@ -110,5 +112,17 @@ namespace engine {
             // Draw the quad
             gl::draw(shader, varray, 6);
         }
+    }
+
+    void renderer_system::on_screen_resize(uint32 width, uint32 height) {
+        // Update the opengl viewport to take the whole screen, instead of
+        // just the previous region
+        glViewport(0, 0, width, height);
+        
+        // Create the orthographic projection matrix so that the image does
+        // not stretch
+        float aspect_ration = static_cast<float>(width) / static_cast<float>(height);
+        projection_matrix = glm::ortho(-aspect_ration, aspect_ration, -1.0f, 1.0f);
+        shader.set_matrix("projection", projection_matrix);
     }
 }

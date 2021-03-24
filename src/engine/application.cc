@@ -29,7 +29,7 @@ namespace engine
         window_handler = SDL_CreateWindow(name.c_str(),
                                           SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
                                           700, 700,
-                                          SDL_WINDOW_OPENGL);
+                                          SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
 
         opengl_context = SDL_GL_CreateContext(window_handler);
         SDL_GL_MakeCurrent(window_handler, opengl_context);
@@ -71,6 +71,12 @@ namespace engine
         } else {
             active_scene = std::make_shared<engine::scene>(logger::create_from_name("active_scene"));
             scenes[0](*active_scene);
+        }
+
+        // Send this event at the start, so that all the systems that need to know
+        // about the screen resolution can know
+        for(auto& system : attached_systems) {
+            system->on_screen_resize(700, 700);
         }
 
         // The main loop. Here events from SDL are thrown into the systems
