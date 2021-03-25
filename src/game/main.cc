@@ -16,11 +16,12 @@ int main(int argc, char** argv) {
         // Add a sprite component so it can be rendered
         auto& sprite = scene.get_registry().emplace<engine::sprite_component>(entity);
         sprite.color = glm::vec4(1.0f, 0.0f, 0.0f, 1.0f);
+        sprite.texture = gl::texture(std::filesystem::path("assets/sprites/test.png"));
 
         // Move the square a bit to the right and stretch it
         auto& transform = scene.get_registry().get<engine::transform_component>(entity);
         transform.position = glm::vec2(0.2f, 0.0f);
-        transform.scale = glm::vec2(1.0f, 1.6f);
+        transform.scale = glm::vec2(1.f, 1.f);
     }, "test_scene");
 
     // Start the game

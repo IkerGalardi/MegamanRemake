@@ -1,6 +1,9 @@
 #include "texture.hh"
 
-#include <SOIL/SOIL.h>
+#include <iostream>
+
+#define STB_IMAGE_IMPLEMENTATION
+#include <stbi/stb_image.h>
 #include <GL/glew.h>
 
 namespace gl {
@@ -15,7 +18,11 @@ namespace gl {
         // start that all the texture things would be done through that library. Right
         // now is only used as a replacement of stb_image
         int32 width, height, channels;
-        uint8* image = SOIL_load_image(path.c_str(), &width, &height, &channels, 4);
+        stbi_set_flip_vertically_on_load(true);
+        uint8* image = stbi_load(path.c_str(), &width, &height, &channels, 4);
+        if(image == nullptr) {
+            std::cerr << "No texture found" << std::endl;
+        }
 
         // Create the texture and bind it
         glGenTextures(1, &id);
@@ -26,19 +33,24 @@ namespace gl {
         //    pixel art, and interpolation would break that pixel art
         //  - Wrapping is set to clamping with no reasoning behind
         /// TODO: expose as parameters to the constructor?
-        glTextureParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-        glTextureParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-        glTextureParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-        glTextureParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
         // Upload the data to the gpu and generate the mipmaps for completeness
         // sake
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
         glGenerateMipmap(GL_TEXTURE_2D);
 
-        SOIL_free_image_data(image);
+        stbi_image_free(image);
+        glBindTexture(GL_TEXTURE_2D, id);
 
         initialized = true;
+    }
+
+    texture::~texture() {
+         glDeleteTextures(1, &id);
     }
 
     void texture::bind_to_slot(uint32 slot) {

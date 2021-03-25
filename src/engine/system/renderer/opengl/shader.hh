@@ -23,6 +23,7 @@ namespace gl {
         shader(const std::filesystem::path& vs, const std::filesystem::path& fs);
         ~shader();
 
+        void set_int(const std::string& name, int value);
         void set_vector(const std::string& name, glm::vec2 vector);
         void set_vector(const std::string& name, glm::vec3 vector);
         void set_vector(const std::string& name, glm::vec4 vector);

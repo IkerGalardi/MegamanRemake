@@ -4,6 +4,7 @@
 #include <glm/glm.hpp>
 
 #include "common.hh"
+#include "engine/system/renderer/opengl/texture.hh"
 
 namespace engine {
     struct tag_component {
@@ -18,5 +19,7 @@ namespace engine {
 
     struct sprite_component {
         glm::vec4 color;
+        gl::texture texture;
     };
+
 }

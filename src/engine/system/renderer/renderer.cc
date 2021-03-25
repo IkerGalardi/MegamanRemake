@@ -31,9 +31,10 @@ const std::string fragment_source =
 "in vec2 TexCoord;\n"
 "out vec4 FragColor;\n"
 "uniform vec4 tint_color;\n"
+"uniform sampler2D text;\n"
 "void main()\n"
 "{\n"
-"   FragColor = tint_color;\n"
+"   FragColor = texture(text, TexCoord);\n"
 "}\0";
 
 namespace engine {
@@ -76,6 +77,9 @@ namespace engine {
 
         gl::set_clear_color({1, 1, 0, 1});
 
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
         logger->info("All buffers sent to the GPU, prepared for rendering...");
     }
 
@@ -108,6 +112,10 @@ namespace engine {
 
             // Set the color tint
             shader.set_vector("tint_color", sprite.color);
+
+            // Bind the texture and use it in the shader
+            sprite.texture.bind_to_slot(0);
+            shader.set_int("text", 0);
             
             // Draw the quad
             gl::draw(shader, varray, 6);

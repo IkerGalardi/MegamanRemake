@@ -49,6 +49,12 @@ namespace gl
             glDeleteProgram(id);
     }
 
+    void shader::set_int(const std::string& name, int value) {
+        glUseProgram(id);
+        int loc = glGetUniformLocation(id, name.c_str());
+        glUniform1i(loc, value);
+    }
+
     void shader::set_vector(const std::string &name, glm::vec2 vector) {
         glUseProgram(id);
         int loc = glGetUniformLocation(id, name.c_str());
