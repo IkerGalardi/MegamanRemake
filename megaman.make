@@ -28,7 +28,7 @@ ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64
 ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -std=c++17
 ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
-LIBS += -lSDL2 -lGLEW -lGL
+LIBS += -lSDL2 -lGLEW -lSOIL -lGL
 LDDEPS +=
 ALL_LDFLAGS += $(LDFLAGS) -Llib/bin -L/usr/lib64 -m64 -s
 LINKCMD = $(CXX) -o "$@" $(OBJECTS) $(RESOURCES) $(ALL_LDFLAGS) $(LIBS)
@@ -66,6 +66,7 @@ GENERATED += $(OBJDIR)/renderer.o
 GENERATED += $(OBJDIR)/scene.o
 GENERATED += $(OBJDIR)/shader.o
 GENERATED += $(OBJDIR)/system.o
+GENERATED += $(OBJDIR)/texture.o
 GENERATED += $(OBJDIR)/vertex_array.o
 OBJECTS += $(OBJDIR)/application.o
 OBJECTS += $(OBJDIR)/buffer.o
@@ -76,6 +77,7 @@ OBJECTS += $(OBJDIR)/renderer.o
 OBJECTS += $(OBJDIR)/scene.o
 OBJECTS += $(OBJDIR)/shader.o
 OBJECTS += $(OBJDIR)/system.o
+OBJECTS += $(OBJDIR)/texture.o
 OBJECTS += $(OBJDIR)/vertex_array.o
 
 # Rules
@@ -156,6 +158,9 @@ $(OBJDIR)/gl.o: src/engine/system/renderer/opengl/gl.cc
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/shader.o: src/engine/system/renderer/opengl/shader.cc
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/texture.o: src/engine/system/renderer/opengl/texture.cc
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/vertex_array.o: src/engine/system/renderer/opengl/vertex_array.cc

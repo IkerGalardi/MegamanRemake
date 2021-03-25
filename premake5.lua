@@ -19,5 +19,6 @@ project "megaman"
     links {
         "SDL2",
         "GLEW",
+        "SOIL",
         "GL"
     }
