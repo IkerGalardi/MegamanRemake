@@ -16,7 +16,7 @@ int main(int argc, char** argv) {
         // Add a sprite component so it can be rendered
         auto& sprite = scene.get_registry().emplace<engine::sprite_component>(entity);
         sprite.color = glm::vec4(1.0f, 0.0f, 0.0f, 1.0f);
-        sprite.texture = gl::texture(std::filesystem::path("assets/sprites/test.png"));
+        sprite.texture.load(std::filesystem::path("assets/sprites/test.png"));
 
         // Move the square a bit to the right and stretch it
         auto& transform = scene.get_registry().get<engine::transform_component>(entity);

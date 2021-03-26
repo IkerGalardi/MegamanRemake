@@ -14,6 +14,14 @@ namespace gl {
     }
 
     texture::texture(std::filesystem::path path) {
+        load(path);
+    }
+
+    texture::~texture() {
+        glDeleteTextures(1, &id);
+    }
+
+    void texture::load(std::filesystem::path path) {
         // Load the image. SOIL is being used right now because it was thought at the 
         // start that all the texture things would be done through that library. Right
         // now is only used as a replacement of stb_image
@@ -47,10 +55,6 @@ namespace gl {
         glBindTexture(GL_TEXTURE_2D, id);
 
         initialized = true;
-    }
-
-    texture::~texture() {
-         glDeleteTextures(1, &id);
     }
 
     void texture::bind_to_slot(uint32 slot) {
