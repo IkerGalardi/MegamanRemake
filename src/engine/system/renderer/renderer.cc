@@ -102,6 +102,7 @@ namespace engine {
         auto& registry = get_scene()->get_registry();
         auto view = registry.view<transform_component, sprite_component>();
         for(auto entity : view) {
+            logger->trace("Rendering entity {}", entity);
             auto [transform, sprite] = view.get<transform_component, sprite_component>(entity);
 
             // Add the transform as an uniform from the shader. This transform is constructed

@@ -11,13 +11,16 @@ namespace gl {
         : initialized(false),
           id(0)
     {
+        std::cout << "texture " << id << " has been created" << std::endl;
     }
 
     texture::texture(std::filesystem::path path) {
+        std::cout << "texture " << id << " has been created" << std::endl;
         load(path);
     }
 
     texture::~texture() {
+        std::cout << "texture " << id << " has been destroyed" << std::endl;
         glDeleteTextures(1, &id);
     }
 
@@ -58,6 +61,8 @@ namespace gl {
     }
 
     void texture::bind_to_slot(uint32 slot) {
+        std::cout << "Bound texture " << id << " to slot " << slot << std::endl;
+
         glActiveTexture(GL_TEXTURE0 + slot);
         glBindTexture(GL_TEXTURE_2D, id);
     }
