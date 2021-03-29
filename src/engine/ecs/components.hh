@@ -19,7 +19,7 @@ namespace engine {
 
     struct sprite_component {
         glm::vec4 color;
-        gl::texture texture;
+        std::shared_ptr<gl::texture> texture;
     };
 
 }

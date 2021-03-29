@@ -102,7 +102,6 @@ namespace engine {
         auto& registry = get_scene()->get_registry();
         auto view = registry.view<transform_component, sprite_component>();
         for(auto entity : view) {
-            logger->trace("Rendering entity {}", entity);
             auto [transform, sprite] = view.get<transform_component, sprite_component>(entity);
 
             // Add the transform as an uniform from the shader. This transform is constructed
@@ -115,7 +114,7 @@ namespace engine {
             shader.set_vector("tint_color", sprite.color);
 
             // Bind the texture and use it in the shader
-            sprite.texture.bind_to_slot(0);
+            sprite.texture->bind_to_slot(0);
             shader.set_int("text", 0);
             
             // Draw the quad

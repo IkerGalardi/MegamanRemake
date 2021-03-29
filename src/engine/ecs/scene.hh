@@ -8,6 +8,7 @@ namespace engine {
     class scene {
     public:
         scene(std::shared_ptr<spdlog::logger> logger);
+        ~scene();
 
         entt::entity create_entity(const std::string name);
 

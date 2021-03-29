@@ -11,11 +11,10 @@ namespace gl {
         : initialized(false),
           id(0)
     {
-        std::cout << "texture " << id << " has been created" << std::endl;
+        std::cout << "texture empty created" << std::endl;
     }
 
     texture::texture(std::filesystem::path path) {
-        std::cout << "texture " << id << " has been created" << std::endl;
         load(path);
     }
 
@@ -39,6 +38,8 @@ namespace gl {
         glGenTextures(1, &id);
         glBindTexture(GL_TEXTURE_2D, id);
 
+        std::cout << "loaded texture with id = " << id << std::endl;
+        
         // Setup the settings of the texture:
         //  - Min and mag filters are set to nearest as the game will be using 
         //    pixel art, and interpolation would break that pixel art
@@ -61,7 +62,7 @@ namespace gl {
     }
 
     void texture::bind_to_slot(uint32 slot) {
-        std::cout << "Bound texture " << id << " to slot " << slot << std::endl;
+        //std::cout << "Bound texture " << id << " to slot " << slot << std::endl;
 
         glActiveTexture(GL_TEXTURE0 + slot);
         glBindTexture(GL_TEXTURE_2D, id);

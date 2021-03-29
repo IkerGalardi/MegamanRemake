@@ -7,6 +7,12 @@ namespace engine {
         : logger(logger),
           camera_position(0.0f, 0.0f)
     {
+        logger->trace("created scene");
+    }
+
+
+    scene::~scene() {
+        logger->trace("scene removed");
     }
 
     entt::entity scene::create_entity(const std::string name) {
