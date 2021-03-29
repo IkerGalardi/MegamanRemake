@@ -15,6 +15,8 @@ project "megaman"
     files { "src/**.cc", "src/**.hh" }
     includedirs {"lib/include", "src"}
 
+    symbols "on"
+
     libdirs {"lib/bin"}
     links {
         "SDL2",
