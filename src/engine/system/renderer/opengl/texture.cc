@@ -11,7 +11,6 @@ namespace gl {
         : initialized(false),
           id(0)
     {
-        std::cout << "texture empty created" << std::endl;
     }
 
     texture::texture(std::filesystem::path path) {
@@ -19,7 +18,6 @@ namespace gl {
     }
 
     texture::~texture() {
-        std::cout << "texture " << id << " has been destroyed" << std::endl;
         glDeleteTextures(1, &id);
     }
 
@@ -38,8 +36,6 @@ namespace gl {
         glGenTextures(1, &id);
         glBindTexture(GL_TEXTURE_2D, id);
 
-        std::cout << "loaded texture with id = " << id << std::endl;
-        
         // Setup the settings of the texture:
         //  - Min and mag filters are set to nearest as the game will be using 
         //    pixel art, and interpolation would break that pixel art
