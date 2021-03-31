@@ -11,9 +11,7 @@ namespace engine {
     class keyboard {
         friend class application;
     public:
-        bool get_key_state(uint32 keycode);
-        bool get_key_down(uint32 keycode);
-        bool get_key_up(uint32 keycode);
+        bool key_state(uint32 keycode);
     private:
         void on_key_pressed(uint32 keycode);
         void on_key_released(uint32 keycode);
