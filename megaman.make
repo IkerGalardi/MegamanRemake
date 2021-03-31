@@ -60,8 +60,10 @@ OBJECTS :=
 GENERATED += $(OBJDIR)/application.o
 GENERATED += $(OBJDIR)/buffer.o
 GENERATED += $(OBJDIR)/gl.o
+GENERATED += $(OBJDIR)/keyboard.o
 GENERATED += $(OBJDIR)/logger.o
 GENERATED += $(OBJDIR)/main.o
+GENERATED += $(OBJDIR)/player_system.o
 GENERATED += $(OBJDIR)/renderer.o
 GENERATED += $(OBJDIR)/scene.o
 GENERATED += $(OBJDIR)/shader.o
@@ -71,8 +73,10 @@ GENERATED += $(OBJDIR)/vertex_array.o
 OBJECTS += $(OBJDIR)/application.o
 OBJECTS += $(OBJDIR)/buffer.o
 OBJECTS += $(OBJDIR)/gl.o
+OBJECTS += $(OBJDIR)/keyboard.o
 OBJECTS += $(OBJDIR)/logger.o
 OBJECTS += $(OBJDIR)/main.o
+OBJECTS += $(OBJDIR)/player_system.o
 OBJECTS += $(OBJDIR)/renderer.o
 OBJECTS += $(OBJDIR)/scene.o
 OBJECTS += $(OBJDIR)/shader.o
@@ -148,6 +152,9 @@ $(OBJDIR)/application.o: src/engine/application.cc
 $(OBJDIR)/scene.o: src/engine/ecs/scene.cc
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/keyboard.o: src/engine/input/keyboard.cc
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/logger.o: src/engine/logger.cc
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
@@ -173,6 +180,9 @@ $(OBJDIR)/system.o: src/engine/system/system.cc
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/main.o: src/game/main.cc
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/player_system.o: src/game/player/player_system.cc
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 

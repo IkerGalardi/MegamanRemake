@@ -11,6 +11,7 @@
 #include "system/system.hh"
 #include "ecs/scene.hh"
 #include "logger.hh"
+#include "input/keyboard.hh"
 
 namespace engine {
     class application {
@@ -29,6 +30,8 @@ namespace engine {
 
         void attach_scene(std::function<void(scene&)> bootstrap, const std::string& name);
 
+        inline engine::keyboard& keyboard() { return kb; }
+
         static application& get();
     private:
         application(const std::string& name = "");
@@ -46,6 +49,8 @@ namespace engine {
         std::shared_ptr<engine::scene> active_scene;
 
         std::shared_ptr<spdlog::logger> logger;
+
+        engine::keyboard kb;
     protected:
     };
 }

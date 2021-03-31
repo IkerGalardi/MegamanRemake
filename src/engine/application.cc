@@ -102,13 +102,20 @@ namespace engine
                                                      event.window.data2);
                         }
                     }
+                } else if(event.type == SDL_EventType::SDL_KEYDOWN) {
+                    kb.on_key_pressed(event.key.keysym.sym);
+                } else if(event.type == SDL_EventType::SDL_KEYUP) {
+                    kb.on_key_released(event.key.keysym.sym);
                 }
+                
             }
 
             // Call 'on_update' on all the systems
             for (auto &system : attached_systems) {
                 system->on_update();
             }
+
+            kb.on_update();
         }
     }
 
