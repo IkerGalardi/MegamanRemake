@@ -20,7 +20,7 @@ public:
     {
     }
 
-    void on_update() override {
+    void on_update(float dtime) override {
         auto& registry = get_scene()->get_registry();
         auto view = registry.view<engine::transform_component, auto_movement>();
         for(auto entity : view) {

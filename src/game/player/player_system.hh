@@ -12,7 +12,7 @@ class player_system : public engine::system {
 public:
     player_system(std::shared_ptr<spdlog::logger> logger);
 
-    void on_update() override;
+    void on_update(float dtime) override;
 private:
 protected:
 };

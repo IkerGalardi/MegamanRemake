@@ -14,7 +14,7 @@ namespace engine {
         renderer_system(std::shared_ptr<spdlog::logger> logger);
         ~renderer_system() override;
 
-        void on_update() override;
+        void on_update(float dtime) override;
         void on_screen_resize(uint32 width, uint32 height) override;
     private:
         gl::vertex_array varray;

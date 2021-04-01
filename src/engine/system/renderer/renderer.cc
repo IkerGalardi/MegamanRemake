@@ -87,7 +87,7 @@ namespace engine {
 
     }
 
-    void renderer_system::on_update() {
+    void renderer_system::on_update(float dtime) {
         gl::clear(GL_COLOR_BUFFER_BIT);
 
         // Calculate the view transformation matrix and send it to the shader

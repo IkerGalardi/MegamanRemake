@@ -7,7 +7,7 @@ player_system::player_system(std::shared_ptr<spdlog::logger> logger)
 {
 }
 
-void player_system::on_update() {
+void player_system::on_update(float dtime) {
     auto& registry = get_scene()->get_registry();
     auto view = registry.view<engine::transform_component, player_component>();
     for(auto entity : view) {

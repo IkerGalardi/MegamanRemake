@@ -17,7 +17,7 @@ namespace engine {
         system(std::shared_ptr<spdlog::logger> logger);
         virtual ~system() = default;
         
-        virtual void on_update() {}
+        virtual void on_update(float dtime) {}
         virtual void on_screen_resize(uint32 width, uint32 height) {}
     private:
     protected:

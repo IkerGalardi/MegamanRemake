@@ -79,10 +79,15 @@ namespace engine
             system->on_screen_resize(700, 700);
         }
 
+        // Delta time at first needs to be zero, as no frames has been passed
+        // to calculate any real value
+        float dtime = 0.0f;
+
         // The main loop. Here events from SDL are thrown into the systems
         // and scenes.
         bool running = true;
         while (running) {
+            float start = SDL_GetTicks();
             SDL_GL_SwapWindow(window_handler);
 
             SDL_Event event;
@@ -112,10 +117,13 @@ namespace engine
 
             // Call 'on_update' on all the systems
             for (auto &system : attached_systems) {
-                system->on_update();
+                system->on_update(dtime);
             }
 
             kb.on_update();
+
+            float current_time = SDL_GetTicks();
+            dtime = (current_time - start) / 1000.0f;
         }
     }
 
