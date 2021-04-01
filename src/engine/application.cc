@@ -124,6 +124,7 @@ namespace engine
 
             float current_time = SDL_GetTicks();
             dtime = (current_time - start) / 1000.0f;
+            logger->trace("delta time = {}", dtime);
         }
     }
 

@@ -14,9 +14,10 @@ void player_system::on_update(float dtime) {
         auto [transform, player] = registry.get<engine::transform_component, player_component>(entity);
 
         if(engine::application::get().keyboard().key_state(SDLK_a)) {
-            transform.position.x -= player.movement_speed * 0.001f;
-        } else if(engine::application::get().keyboard().key_state(SDLK_d)) {
-            transform.position.x += player.movement_speed * 0.001f;
+            transform.position.x -= player.movement_speed * dtime;
+        } 
+        if(engine::application::get().keyboard().key_state(SDLK_d)) {
+            transform.position.x += player.movement_speed * dtime;
         }
     }
 }

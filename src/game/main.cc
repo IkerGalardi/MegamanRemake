@@ -67,10 +67,12 @@ int main(int argc, char** argv) {
         //mov2.movement_vector = { 1.0f, 0.0f };
 
         auto entity3 = scene.create_entity("player");
+        auto& transform = scene.get_registry().get<engine::transform_component>(entity3);
+        transform.scale = {0.2, 0.2};
         auto& sprite3 = scene.get_registry().emplace<engine::sprite_component>(entity3);
         sprite3.texture = std::make_shared<gl::texture>(std::filesystem::path("assets/sprites/player.png"));
         auto& player3 = scene.get_registry().emplace<player_component>(entity3);
-        player3.movement_speed = 5.0f;
+        player3.movement_speed = 1.0f;
     }, "test_scene");
 
     // Start the game
