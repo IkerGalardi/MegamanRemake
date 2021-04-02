@@ -1,15 +1,15 @@
 #pragma once
 
 typedef unsigned char byte;
-typedef char sbyte;
+typedef signed char   sbyte;
 
 typedef unsigned char  uint8;
 typedef unsigned short uint16;
 typedef unsigned int   uint32;
 typedef unsigned long  uint64;
-typedef char           int8;
-typedef short          int16;
-typedef int            int32;
-typedef long           int64;
+typedef signed char    int8;
+typedef signed short   int16;
+typedef signed int     int32;
+typedef signed long    int64;
 
 #define BIT(x) (1 << (x))
