@@ -15,11 +15,17 @@ project "megaman"
     files { "src/**.cc", "src/**.hh" }
     includedirs {"lib/include", "src"}
 
-    symbols "on"
-
     libdirs {"lib/bin"}
     links {
         "SDL2",
         "GLEW",
         "GL"
     }
+    
+    filter "configurations:Debug"
+        symbols "on"
+        optimize "off"
+    filter "configurations:Release"
+        symbols "off"
+        optimize "on"
+        runtime "Release"
