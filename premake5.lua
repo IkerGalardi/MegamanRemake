@@ -19,7 +19,8 @@ project "megaman"
     links {
         "SDL2",
         "GLEW",
-        "GL"
+        "GL", 
+        "box2d"
     }
     
     filter "configurations:Debug"
