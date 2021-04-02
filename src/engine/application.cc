@@ -42,6 +42,9 @@ namespace engine
             std::exit(1);
         }
         logger->info("OpenGL initialized succesfully");
+
+        // Disable vsync
+        SDL_GL_SetSwapInterval(0);
     }
 
     application::~application() {
