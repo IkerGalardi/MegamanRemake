@@ -5,7 +5,10 @@
 #include "engine/ecs/components.hh"
 #include "engine/system/system.hh"
 
+
 namespace engine {
+    typedef b2Body* rigidbody;
+    
     class physics_system : public engine::system {
         SYSTEM_BOILERPLATE(physics_system)
     public:

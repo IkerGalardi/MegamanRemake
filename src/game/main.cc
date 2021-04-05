@@ -40,12 +40,12 @@ protected:
 int main(int argc, char** argv) {
     // Adding all systems
     engine::application::get().attach_system<engine::renderer_system>();
-    engine::application::get().attach_system<engine::physics_system>();
+    auto physics = engine::application::get().attach_system<engine::physics_system>();
     engine::application::get().attach_system<auto_movement_system>();
     engine::application::get().attach_system<player_system>();
 
     // Setup all scenes
-    engine::application::get().attach_scene([](engine::scene& scene){
+    engine::application::get().attach_scene([&](engine::scene& scene){
         scene.camera_position = { 0.0f, 0.0f };
 
         auto player = scene.create_entity("player");
@@ -56,6 +56,8 @@ int main(int argc, char** argv) {
         sprite3.texture = std::make_shared<gl::texture>("assets/sprites/player.png");
         auto& player3 = scene.get_registry().emplace<player_component>(player);
         player3.movement_speed = 1.0f;
+        auto quadcol = scene.get_registry().emplace<engine::rigidbody>(player, physics->create_box(transform));
+        quadcol->SetType(b2_dynamicBody);
 
         auto floor = scene.create_entity("floor");
         auto& fl_transform = scene.get_registry().get<engine::transform_component>(floor);
@@ -63,6 +65,9 @@ int main(int argc, char** argv) {
         fl_transform.scale = { 5.0f, 1.0f };
         auto& fl_sprite = scene.get_registry().emplace<engine::sprite_component>(floor);
         fl_sprite.texture = std::make_shared<gl::texture>("assets/sprites/test.png");
+        auto floorcol = scene.get_registry().emplace<engine::rigidbody>(floor, physics->create_box(fl_transform));
+        quadcol->SetType(b2_staticBody);
+
     }, "test_scene");
 
     // Start the game

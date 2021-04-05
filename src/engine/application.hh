@@ -20,12 +20,16 @@ namespace engine {
         void start();
 
         template<typename sys>
-        void attach_system() {
+        std::shared_ptr<sys> attach_system() {
             std::string sys_name = sys::get_name();
             logger->info("System {} has been attatched", sys_name);
 
             auto system_logger = logger::create_from_name(sys_name);
-            attached_systems.push_back(std::make_shared<sys>(system_logger));
+            
+            auto system = std::make_shared<sys>(system_logger);
+            attached_systems.push_back(system);
+            
+            return system;
         }
 
         void attach_scene(std::function<void(scene&)> bootstrap, const std::string& name);
