@@ -5,6 +5,7 @@
 #include "engine/application.hh"
 #include "engine/system/system.hh"
 #include "engine/system/renderer/renderer.hh"
+#include "engine/system/physics/physics_system.hh"
 #include "engine/ecs/components.hh"
 #include "engine/logger.hh"
 
@@ -39,6 +40,7 @@ protected:
 int main(int argc, char** argv) {
     // Adding all systems
     engine::application::get().attach_system<engine::renderer_system>();
+    engine::application::get().attach_system<engine::physics_system>();
     engine::application::get().attach_system<auto_movement_system>();
     engine::application::get().attach_system<player_system>();
 

@@ -66,6 +66,7 @@ GENERATED += $(OBJDIR)/gl.o
 GENERATED += $(OBJDIR)/keyboard.o
 GENERATED += $(OBJDIR)/logger.o
 GENERATED += $(OBJDIR)/main.o
+GENERATED += $(OBJDIR)/physics_system.o
 GENERATED += $(OBJDIR)/player_system.o
 GENERATED += $(OBJDIR)/renderer.o
 GENERATED += $(OBJDIR)/scene.o
@@ -79,6 +80,7 @@ OBJECTS += $(OBJDIR)/gl.o
 OBJECTS += $(OBJDIR)/keyboard.o
 OBJECTS += $(OBJDIR)/logger.o
 OBJECTS += $(OBJDIR)/main.o
+OBJECTS += $(OBJDIR)/physics_system.o
 OBJECTS += $(OBJDIR)/player_system.o
 OBJECTS += $(OBJDIR)/renderer.o
 OBJECTS += $(OBJDIR)/scene.o
@@ -159,6 +161,9 @@ $(OBJDIR)/keyboard.o: src/engine/input/keyboard.cc
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/logger.o: src/engine/logger.cc
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/physics_system.o: src/engine/system/physics/physics_system.cc
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/buffer.o: src/engine/system/renderer/opengl/buffer.cc
