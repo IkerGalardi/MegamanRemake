@@ -33,9 +33,9 @@ namespace engine {
         acum_dtime += dtime;
 
         // Just step on fixed time stamps
-        if(acum_dtime > 0.033333333f) {
+        if(acum_dtime > 0.033333333f/2.0f) {
             acum_dtime = 0.0f;
-            world.Step(0.033333333f, 8, 6);
+            world.Step(0.033333333f/2.0f, 8, 6);
         }
         auto& registry = get_scene()->get_registry();
         auto view = registry.view<transform_component, rigidbody>();
