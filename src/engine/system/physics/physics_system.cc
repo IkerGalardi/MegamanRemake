@@ -20,7 +20,7 @@ namespace engine {
 
         // Set the shape of the body
         b2PolygonShape shape;
-        shape.SetAsBox(transform.scale.y, transform.scale.x);
+        shape.SetAsBox(transform.scale.x / 2, transform.scale.y / 2);
         res->CreateFixture(&shape, 1.0f);
 
         logger->info("Registered a body");
@@ -33,9 +33,9 @@ namespace engine {
         acum_dtime += dtime;
 
         // Just step on fixed time stamps
-        if(acum_dtime > 0.033333333f/2) {
+        if(acum_dtime > 0.033333333f) {
             acum_dtime = 0.0f;
-            world.Step(0.033333333f/2, 8, 6);
+            world.Step(0.033333333f, 8, 6);
         }
         auto& registry = get_scene()->get_registry();
         auto view = registry.view<transform_component, rigidbody>();

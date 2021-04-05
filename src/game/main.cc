@@ -16,24 +16,19 @@ class auto_movement_system : public engine::system {
     SYSTEM_BOILERPLATE(auto_movement_system)
 public:
     auto_movement_system(std::shared_ptr<spdlog::logger> logger) 
-        : engine::system(logger),
-          t(0.0f)
+        : engine::system(logger)
     {
     }
 
     void on_update(float dtime) override {
         auto& registry = get_scene()->get_registry();
-        auto view = registry.view<engine::transform_component, auto_movement>();
+        auto view = registry.view<engine::transform_component, engine::tag_component>();
         for(auto entity : view) {
-            auto [transform, mov] = registry.get<engine::transform_component, auto_movement>(entity);
-            transform.position += glm::vec2{mov.movement_vector.x * std::sin(t) * 0.02f,
-                                            mov.movement_vector.y * std::sin(t) * 0.01f};
+            auto [transform, tag] = registry.get<engine::transform_component, engine::tag_component>(entity);
+            logger->trace("entity {} with position ({}, {})", tag.name, transform.position.x, transform.position.y);
         }
-
-        t += 0.1f;
     }
 private:
-    float t;
 protected:
 };
 
@@ -66,7 +61,7 @@ int main(int argc, char** argv) {
         auto& fl_sprite = scene.get_registry().emplace<engine::sprite_component>(floor);
         fl_sprite.texture = std::make_shared<gl::texture>("assets/sprites/test.png");
         auto floorcol = scene.get_registry().emplace<engine::rigidbody>(floor, physics->create_box(fl_transform));
-        quadcol->SetType(b2_staticBody);
+        floorcol->SetType(b2_staticBody);
 
     }, "test_scene");
 
