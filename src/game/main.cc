@@ -25,7 +25,7 @@ public:
         auto view = registry.view<engine::transform_component, engine::tag_component>();
         for(auto entity : view) {
             auto [transform, tag] = registry.get<engine::transform_component, engine::tag_component>(entity);
-            logger->trace("entity {} with position ({}, {})", tag.name, transform.position.x, transform.position.y);
+            //logger->trace("entity {} with position ({}, {})", tag.name, transform.position.x, transform.position.y);
         }
     }
 private:
