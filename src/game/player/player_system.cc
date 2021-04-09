@@ -24,32 +24,41 @@ void player_system::on_update(float dtime) {
 
             b2Vec2 movement{0.0f, 0.0f};
             float scale = transform.scale.x;
-            if(engine::application::get().keyboard().key_state(SDLK_a)) {
+            bool a_press = engine::application::get().keyboard().key_state(SDLK_a);
+            bool b_press = engine::application::get().keyboard().key_state(SDLK_d);
+            if(a_press) {
                 // Move the player
-                movement.x = -player.movement_speed * dtime;
+                movement.x = -player.movement_speed;
 
                 // Flip the player if it needs to be fliped
                 if(scale > 0) {
                     transform.scale.x = -scale;
                 }
-                rigid->ApplyForceToCenter(300 * movement, true);
+                
+                rigid->SetLinearVelocity(movement);
             } 
-            if(engine::application::get().keyboard().key_state(SDLK_d)) {
+            if(b_press) {
                 // Move the player
-                movement.x = player.movement_speed * dtime;
+                movement.x = player.movement_speed;
 
                 // Flip the player if it needs to be fliped
                 if(scale < 0) {
                     transform.scale.x = -scale;
                 }
-                rigid->ApplyForceToCenter(300 * movement, true);
+                
+                rigid->SetLinearVelocity(movement);
             }
 
-            if(engine::application::get().keyboard().key_state(SDLK_SPACE)) {
-                rigid->ApplyLinearImpulseToCenter(b2Vec2{0.0, .05f}, true);
-            } else {
-                rigid->ApplyLinearImpulseToCenter(b2Vec2_zero, true);
+            if((!a_press && !b_press) || (a_press && b_press)) {
+                rigid->SetLinearVelocity(b2Vec2_zero);
+                transform.scale.x = scale;
             }
+
+            //if(engine::application::get().keyboard().key_state(SDLK_SPACE)) {
+            //    rigid->ApplyLinearImpulseToCenter(b2Vec2{0.0, .05f}, true);
+            //} else {
+            //    rigid->ApplyLinearImpulseToCenter(b2Vec2_zero, true);
+            //}
         }
     }
 }

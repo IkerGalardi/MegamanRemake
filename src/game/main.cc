@@ -50,9 +50,9 @@ int main(int argc, char** argv) {
         auto& sprite3 = scene.get_registry().emplace<engine::sprite_component>(player);
         sprite3.texture = std::make_shared<gl::texture>("assets/sprites/player.png");
         auto& player3 = scene.get_registry().emplace<player_component>(player);
-        player3.movement_speed = 1.0f;
+        player3.movement_speed = 2.0f;
         auto quadcol = scene.get_registry().emplace<engine::rigidbody>(player, physics->create_box(transform));
-        quadcol->SetType(b2_dynamicBody);
+        quadcol->SetType(b2_kinematicBody);
 
         auto floor = scene.create_entity("floor");
         auto& fl_transform = scene.get_registry().get<engine::transform_component>(floor);
