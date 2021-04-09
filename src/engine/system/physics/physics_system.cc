@@ -7,11 +7,6 @@ namespace engine {
     {
     }
 
-    physics_system::~physics_system() {
-
-    }
-
-
     b2Body* physics_system::create_box(transform_component transform) {
         // Define the body
         b2BodyDef definition;

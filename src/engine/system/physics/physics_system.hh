@@ -13,7 +13,7 @@ namespace engine {
         SYSTEM_BOILERPLATE(physics_system)
     public:
         physics_system(std::shared_ptr<spdlog::logger> logger);
-        ~physics_system();
+        ~physics_system() = default;
 
         b2Body* create_box(transform_component transform);
 
